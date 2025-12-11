@@ -1,5 +1,5 @@
-import React, { useReducer } from "react";
-import { PredictionContext } from "./PredictionContext";
+import { useReducer } from 'react';
+import { PredictionContext } from './PredictionContext';
 
 const initialState = {
   loading: false,
@@ -9,18 +9,20 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "START":
+    case 'START':
       return { ...state, loading: true, error: null };
-    case "SUCCESS":
+    case 'SUCCESS':
       return { ...state, loading: false, result: action.payload };
-    case "ERROR":
+    case 'ERROR':
       return { ...state, loading: false, error: action.payload };
+    case 'RESET':
+      return initialState;
     default:
       return state;
   }
 }
 
-const PredictionProvider = ({ children }) => {
+export const PredictionProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
@@ -29,5 +31,3 @@ const PredictionProvider = ({ children }) => {
     </PredictionContext.Provider>
   );
 };
-
-export default PredictionProvider;
